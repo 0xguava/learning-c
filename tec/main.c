@@ -7,10 +7,9 @@ void engg_year(int x,char input[]);
 void get_branch(char x[],char input[]);
 
 int main(){
-  int x,roll_no,yr,ch;
-  char path[15],br[5];
+  int x,roll_no,yr,ch; char path[15],br[5];
   FILE *data;
-  char name[50], branch[50], year[5];
+  char name[50], branch[50], year[5], town[25];
 
   do {
     system("clear");
@@ -52,11 +51,14 @@ int main(){
         printf("Enter Name: ");
         getchar();
         get_data(sizeof(name),name);
+        printf("Enter Town of Residence: ");
+        get_data(sizeof(town),town);
         get_branch(br, branch);
         fprintf(data,"Name: %s",name);
         fprintf(data,"Roll number: %d\n",roll_no);
         fprintf(data,"Branch: %s\n",branch);
         fprintf(data,"Year: %s\n",year);
+        fprintf(data,"Town of Residence: %s\n",town);
 
         break;
       }
@@ -118,7 +120,7 @@ void get_branch(char x[],char input[]){
   }else if(strcmp(x,"S") == 0){
     strcpy(input, "Electrical Engineering");
   }else if(strcmp(x,"M") == 0){
-    strcpy(input, "Mechnical Engineering");
+    strcpy(input, "Mechanical Engineering");
   }else if(strcmp(x,"U1") == 0 || strcmp(x,"U2") == 0){
     strcpy(input, "Electronics and Telecommunication Engineering");
   }else{
