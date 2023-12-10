@@ -7,7 +7,8 @@ void engg_year(int x,char input[]);
 void get_branch(char x[],char input[]);
 
 int main(){
-  int x,roll_no,yr,ch; char path[15],br[5];
+  int x,roll_no,yr,ch;
+  char path[15],br[5];
   FILE *data;
   char name[50], branch[50], year[5], town[25];
 
@@ -15,45 +16,53 @@ int main(){
     system("clear");
     printf("1.Enter data\n2.View data\nEnter choice(1/2): ");
     scanf("%d",&ch);
-
-    system("clear");
-
-    printf("Enter your Roll number: ");
-    scanf("%d",&roll_no);
-
-    printf("Years\n");
-    printf("1.Ist\n2.IInd\n3.IIIrd\n4.IVth\n");
-    printf("Enter year in Engineering(1/2/3/4): ");
-    scanf("%d",&yr);
-    engg_year(yr,year);
-    if(yr!=1 && yr!=2 && yr!=3 && yr!=4){
-      break;
-    }
-
-    printf("Enter Branch(R/N/M/S/U)in Caps only: ");
-    scanf("%s",br);
-    if(strcmp(br, "R")!=0 && strcmp(br, "N")!=0 && strcmp(br, "M")!=0 && strcmp(br, "S")!=0 && strcmp(br, "U1")!=0 && strcmp(br, "U2")!=0){
-      printf("Invalid Input.\n");
+    if(ch != 1 && ch != 2){
+      printf("Invalid Input\n");
       break;
     }
 
     system("clear");
-
-    snprintf(path,sizeof(path),"data/%d%s-%d.txt",yr,br,roll_no);//Creates data file inside data directory, so data directory must be created before execution of code.
 
     switch(ch){
       case 1:{
+        printf("Enter your Roll number: ");
+        scanf("%d",&roll_no);
+
+        printf("Years\n");
+        printf("1.Ist\n2.IInd\n3.IIIrd\n4.IVth\n");
+        printf("Enter year in Engineering(1/2/3/4): ");
+        scanf("%d",&yr);
+        engg_year(yr,year);
+        if(yr!=1 && yr!=2 && yr!=3 && yr!=4){
+          break;
+        }
+
+        printf("Enter Branch(R/N/M/S/U)in Caps only: ");
+        scanf("%s",br);
+        if(strcmp(br, "R")!=0 && strcmp(br, "N")!=0 && strcmp(br, "M")!=0 && strcmp(br, "S")!=0 && strcmp(br, "U1")!=0 && strcmp(br, "U2")!=0){
+          printf("Invalid Input.\n");
+          break;
+        }
+        
+        snprintf(path,sizeof(path),"data/%d%s-%d.txt",yr,br,roll_no);//Creates data file inside data directory, so data directory must be created before execution of code.
+
         data = fopen(path, "a");
-        if (data == NULL){
+         
+        if(data != NULL){
+          printf("You have already Entered data.\n");
+          break;
+        }else if(data == NULL){
           printf("Technical error.\n");
           break;
         }
+
         printf("Enter Name: ");
         getchar();
         get_data(sizeof(name),name);
         printf("Enter Town of Residence: ");
         get_data(sizeof(town),town);
         get_branch(br, branch);
+        fprintf(data,"ID: %d%s-%d\n",yr,br,roll_no);
         fprintf(data,"Name: %s",name);
         fprintf(data,"Roll number: %d\n",roll_no);
         fprintf(data,"Branch: %s\n",branch);
@@ -64,11 +73,18 @@ int main(){
       }
 
       case 2:{
+        printf("Enter your id (Eg. 1R-30): ");
+        scanf("%s",branch);
+
+        snprintf(path,sizeof(path),"data/%s.txt",branch);
+
         data = fopen(path, "r");
+
         if (data == NULL){
           printf("Enter data first.\n");
           break;
         }
+
         getchar();
         while(fgets(name,sizeof(name),data)){
           printf("%s",name);
