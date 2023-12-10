@@ -48,10 +48,7 @@ int main(){
 
         data = fopen(path, "a");
          
-        if(data != NULL){
-          printf("You have already Entered data.\n");
-          break;
-        }else if(data == NULL){
+        if(data == NULL){
           printf("Technical error.\n");
           break;
         }
