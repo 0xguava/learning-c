@@ -58,6 +58,7 @@ int main(){
         get_data(sizeof(name),name);
         printf("Enter Town of Residence: ");
         get_data(sizeof(town),town);
+        printf("\nID: %d%s-%d (use this id to view your Information)\n\n",yr,br,roll_no);
         get_branch(br, branch);
         fprintf(data,"ID: %d%s-%d\n",yr,br,roll_no);
         fprintf(data,"Name: %s",name);
